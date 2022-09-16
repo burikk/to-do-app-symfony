@@ -57,16 +57,28 @@ class ToDoListController extends AbstractController
     /**
      * @Route("/update/{id}", name="update_status")
      */
-    public function update($id)
+    public function update(Request $request): Response
     {
-        exit('switch' . $id);
+        $id = $request->get('id');
+        $entityManager = $this->registry->getManager();
+        $task = $entityManager->getRepository(Task::class)->find($id);
+
+        $task->setStatus(!$task->isStatus());
+        $entityManager->flush();
+
+        return $this->redirectToRoute('to_do_list');
     }
 
     /**
      * @Route("/delete/{id}", name="delete_task")
      */
-    public function delete($id)
+    public function delete(Task $id): Response
     {
-        exit('deleted' . $id);
+        $entityManager = $this->registry->getManager();
+
+        $entityManager->remove($id);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('to_do_list');
     }
 }
