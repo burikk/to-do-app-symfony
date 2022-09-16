@@ -17,4 +17,28 @@ class ToDoListController extends AbstractController
     {
         return $this->render('to_do_list/index.html.twig');
     }
+
+    /**
+     * @Route("/create", name="create_task", methods={"POST"})
+     */
+    public function createTask(): Response
+    {
+        exit('to do');
+    }
+
+    /**
+     * @Route("/update/{id}", name="update_status")
+     */
+    public function update($id)
+    {
+        exit('switch' . $id);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete_task")
+     */
+    public function delete($id)
+    {
+        exit('deleted' . $id);
+    }
 }
